@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import ShowCard from "./ShowCard";
-import './EventList.css';
+import './ShowList.css';
+import { Link } from 'react-router-dom';
 
 function ShowList({ search }) {
   const [shows, setShows] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("Fech/url")
+    fetch("url") // Ensure this is the correct URL to fetch your data
       .then((resp) => {
         if (!resp.ok) {
           throw new Error("Failed to fetch shows");
@@ -18,8 +19,8 @@ function ShowList({ search }) {
       .catch((error) => setError(error.message));
   }, []);
 
-  function removeEvent(showId) {
-    const filteredShows = Shows.filter((show) => show.id !== showId);
+  function removeShow(showId) {
+    const filteredShows = shows.filter((show) => show.id !== showId);
     setShows(filteredShows);
   }
 
@@ -49,4 +50,5 @@ function ShowList({ search }) {
 }
 
 export default ShowList;
+
 

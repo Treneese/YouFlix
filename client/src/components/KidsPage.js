@@ -16,23 +16,23 @@ function Kids({ search }) {
         }
         return resp.json();
       })
-      .then((data) => setEvents(data))
+      .then((data) => setShows(data))
       .catch((error) => setError(error.message));
   }, []);
 
   function removeShows(showId) {
-    const filteredShows = shows.filter((show) => show.id !== showId);
-    setEvents(filteredShows);
+    const filteredShows = Shows.filter((show) => show.id !== showId);
+    setShows(filteredShows);
   }
 
-  const filteredShows = shows.filter((show) => {
+  const filteredShows = Shows.filter((show) => {
     const lowercaseSearch = search ? search.toLowerCase() : '';
     const lowercaseName = show.name ? show.name.toLowerCase() : '';
     return lowercaseName.includes(lowercaseSearch);
   });
 
   const showCards = filteredShows.map((show) => (
-    <ShowCard key={show.id} show={show} removeShow={removeShow} />
+    <ShowCard key={show.id} show={show} removeShows={removeShows} />
   ));
 
 
@@ -40,11 +40,11 @@ function Kids({ search }) {
     <div className="Kids-container">
       <h1>Kids</h1>
       {error && <p>Error: {error}</p>}
-      {eventCards.length === 0 ? (
+      {showCards.length === 0 ? (
         <p>No Kids Shows Available.</p>
       ) : (
         <ul className="cards">
-          {eventCards}
+          {showCards}
         </ul>
       )}
     </div>

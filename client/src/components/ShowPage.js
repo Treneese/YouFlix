@@ -2,13 +2,13 @@
 import React, { useEffect, useState } from "react";
 // import { Switch, Route } from "react-router-dom";
 import ShowCard from "./ShowCard";
-import './EventList.css';
+import Shows from "./ShowList";
+import './ShowList.css';
 
-function Shows() {
-
-function ShowList({ search }) {
-  const [shows, setShows] = useState([]);
+function ShowsPage({Shows, search}) {
   const [error, setError] = useState(null);
+  const [shows, setShows] = useState([]);
+
 
   useEffect(() => {
     fetch("Fech/url")
@@ -22,7 +22,7 @@ function ShowList({ search }) {
       .catch((error) => setError(error.message));
   }, []);
 
-  function removeEvent(showId) {
+  function removeShow(showId) {
     const filteredShows = Shows.filter((show) => show.id !== showId);
     setShows(filteredShows);
   }
@@ -36,7 +36,7 @@ function ShowList({ search }) {
   const showCards = filteredShows.map((show) => (
     <ShowCard key={show.id} show={show} removeShow={removeShow} />
   ));
-}
+
 return(
   <div>
   <h1>Shows</h1>
@@ -52,4 +52,4 @@ return(
 )
 }
 
-export default Shows;
+export default ShowsPage;
