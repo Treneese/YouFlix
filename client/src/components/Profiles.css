@@ -1,0 +1,38 @@
+/* src/components/Profiles.css */
+.profiles {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .profiles-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .profile {
+    margin: 10px;
+    cursor: pointer;
+  }
+  
+  .profile-avatar {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+  }
+  
+  .new-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .new-profile input {
+    margin: 5px 0;
+  }
+  
+  .new-profile button {
+    margin-top: 10px;
+  }
+  
