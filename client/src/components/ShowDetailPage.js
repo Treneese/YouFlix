@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import "./ShowsDetail.css";
 
 function ShowDetailPage() {
   const { id } = useParams(); // Assume this is passed via the URL
   const [show, setShow] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -14,16 +16,22 @@ function ShowDetailPage() {
         }
         return resp.json();
       })
-      .then((data) => setShow(data))
-      .catch((error) => setError(error.message));
+      .then((data) => {
+        setShow(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError(error.message);
+        setLoading(false);
+      });
   }, [id]);
 
-  if (error) {
-    return <p>Error: {error}</p>;
+  if (loading) {
+    return <p>Loading...</p>; // Add a loading spinner here if desired
   }
 
-  if (!show) {
-    return <p>Loading...</p>;
+  if (error) {
+    return <p>Error: {error}</p>; // Add retry option or user-friendly error handling
   }
 
   return (
@@ -53,3 +61,4 @@ function ShowDetailPage() {
 }
 
 export default ShowDetailPage;
+

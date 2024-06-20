@@ -1,4 +1,21 @@
-.card-container {
+.My_List-container {
+    padding: 20px;
+  }
+  
+  .My_List-container h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .cards {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-gap: 20px;
+  }
+  
+  /* ShowCard styles */
+  .card-container {
     border: 1px solid #ddd;
     border-radius: 5px;
     padding: 10px;
@@ -41,6 +58,7 @@
   }
   
   .favorite-button:hover {
-    background-color: #ff0000;
+    background-color: #b30000;
   }
+
   

@@ -1,4 +1,15 @@
-.card-container {
+/* Movies component styles */
+.Movie-container {
+    padding: 20px;
+  }
+  
+  .Movie-container h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  /* ShowCard component styles */
+  .card-container {
     border: 1px solid #ddd;
     border-radius: 5px;
     padding: 10px;
@@ -28,7 +39,7 @@
   }
   
   .favorite-button {
-    background-color: #ff0000;
+    background-color: #007bff;
     color: #fff;
     border: none;
     padding: 5px 10px;
@@ -41,6 +52,6 @@
   }
   
   .favorite-button:hover {
-    background-color: #ff0000;
+    background-color: #ff0707;
   }
   

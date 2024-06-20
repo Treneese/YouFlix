@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
 
 # Standard library imports
+from flask_cors import CORS
+from flask import Flask
 
+
+app = Flask(__name__)
+CORS(app)
 # Remote library imports
 from flask import request
 from flask_restful import Resource
@@ -9,8 +14,6 @@ from flask_restful import Resource
 # Local imports
 from config import app, db, api
 # Add your model imports
-from models import Profile
-from models import Show
 
 # Views go here!
 
@@ -82,6 +85,7 @@ def delete_favorite(profile_id, show_id):
     return jsonify({'message': 'Profile or Show not found'}), 404
 
 
+
 @app.route('/')
 def index():
     return '<h1>Project Server</h1>'
@@ -90,3 +94,82 @@ def index():
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
 
+# #@app.route('/shows', methods=['GET'])
+# def get_shows():
+#     shows = Show.query.all()
+#     return jsonify([{"id": show.id, "name": show.name, "image": show.image} for show in shows]), 200
+
+# @app.route('/shows', methods=['POST'])
+# def create_show():
+#     data = request.get_json()
+#     new_show = Show(name=data['name'], image=data['image'])
+#     db.session.add(new_show)
+#     db.session.commit()
+#     return jsonify({"id": new_show.id, "name": new_show.name, "image": new_show.image}), 201
+
+# @app.route('/shows/<int:show_id>', methods=['DELETE'])
+# def delete_show(show_id):
+#     show = Show.query.get(show_id)
+#     if show is None:
+#         abort(404)
+#     db.session.delete(show)
+#     db.session.commit()
+#     return '', 204
+
+# if __name__ == '__main__':
+#     app.run(debug=True)
+
+# @app.route('/shows', methods=['GET'])
+# def get_shows():
+#     shows = Show.query.all()
+#     return jsonify([{
+#         "id": show.id, 
+#         "name": show.name, 
+#         "image": show.image
+#     } for show in shows]), 200
+
+# @app.route('/shows/<int:show_id>', methods=['GET'])
+# def get_show(show_id):
+#     show = Show.query.get(show_id)
+#     if show is None:
+#         abort(404)
+#     return jsonify({
+#         "id": show.id,
+#         "name": show.name,
+#         "image": show.image,
+#         "video": show.video,
+#         "summary": show.summary,
+#         "category": show.category,
+#         "subCategory": show.subCategory,
+#         "episode": show.episode,
+#         "episodeSummary": show.episodeSummary
+#     }), 200
+
+# @app.route('/shows', methods=['POST'])
+# def create_show():
+#     data = request.get_json()
+#     new_show = Show(
+#         name=data['name'], 
+#         image=data['image'],
+#         video=data.get('video'),
+#         summary=data.get('summary'),
+#         category=data.get('category'),
+#         subCategory=data.get('subCategory'),
+#         episode=data.get('episode'),
+#         episodeSummary=data.get('episodeSummary')
+#     )
+#     db.session.add(new_show)
+#     db.session.commit()
+#     return jsonify({"id": new_show.id, "name": new_show.name, "image": new_show.image}), 201
+
+# @app.route('/shows/<int:show_id>', methods=['DELETE'])
+# def delete_show(show_id):
+#     show = Show.query.get(show_id)
+#     if show is None:
+#         abort(404)
+#     db.session.delete(show)
+#     db.session.commit()
+#     return '', 204
+
+# if __name__ == '__main__':
+#     app.run(debug=True)

@@ -10,40 +10,39 @@ import ShowDetailPage from "./ShowDetailPage";
 import Header from "./Header";
 import Search from "./Search";
 import Profile from "./Profile";
-import User from "./User";
-
-
+import Login from "./Login";
 
 function App() {
-
-  const [Shows, setShows] = useState([])
+  const [showsData, setShowsData] = useState([]);
   const [search, setSearch] = useState("");
-  function handleSearch(searchShow) {
-    setSearch(searchShow);
+
+  function handleSearch(searchValue) {
+    setSearch(searchValue);
   }
+
+  useEffect(() => {
+    // Fetch shows data or any initial data fetching logic
+    // setShowsData(data);
+  }, []);
+
   return (
     <div className="App">
-      
       <Header />
-     
-     <Nav/>
 
-      <Search onSearch={handleSearch} Shows={Shows} />
-<BrowserRouter>
-<Route path="/Shows" element={<ShowList search={search}/>}/>
-<Switch>
-        <Route exact path="/" component={ShowList} />
-        <Route path="/ShowsDetailPage/:id" component={ShowDetailPage} />
-      </Switch>
-<Route path="/Shows/Movies" element={<Movies /> }/>
-<Route path="//Shows/Kids" element={<Kids />}/>
-<Route path="//Shows/MyList" element={<MyList />}/>
-<Route path="/Profile" element={<Profile/>}/>
-<Route path="/User" element={<User />}/>
-<Route path="/ShowDetailPage" element={<ShowDetailPage />}/>
-</BrowserRouter>
-</div>
-)
+      <Search onSearch={handleSearch} showsData={showsData} />
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={() => <ShowList search={search} />} />
+          <Route path="/ShowsDetailPage/:id" component={ShowDetailPage} />
+          <Route path="/Shows/Movies" component={Movies} />
+          <Route path="/Shows/Kids" component={Kids} />
+          <Route path="/Shows/MyList" component={MyList} />
+          <Route path="/Profile" component={Profile} />
+          <Route path="/Login" component={Login} />
+        </Switch>
+      </BrowserRouter>
+    </div>
+  );
 }
 
 export default App;

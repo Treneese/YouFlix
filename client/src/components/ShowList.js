@@ -8,7 +8,7 @@ function ShowList({ search }) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("url") // Ensure this is the correct URL to fetch your data
+    fetch("http://127.0.0.1:5000/shows") // Ensure this is the correct URL to fetch your data
       .then((resp) => {
         if (!resp.ok) {
           throw new Error("Failed to fetch shows");
@@ -20,6 +20,16 @@ function ShowList({ search }) {
   }, []);
 
   function removeShow(showId) {
+  //   fetch(`http://127.0.0.1:5000/shows/${showId}`, { method: 'DELETE' })
+  //     .then((resp) => {
+  //       if (!resp.ok) {
+  //         throw new Error("Failed to delete show");
+  //       }
+  //       setShows(shows.filter((show) => show.id !== showId));
+  //     })
+  //     .catch((error) => setError(error.message));
+  // }
+
     const filteredShows = shows.filter((show) => show.id !== showId);
     setShows(filteredShows);
   }
