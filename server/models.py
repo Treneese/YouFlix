@@ -2,6 +2,7 @@ from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.associationproxy import association_proxy
 from server.config import db, bcrypt 
 from config import db
+import validators
 
 
 
@@ -24,17 +25,21 @@ class Show(db.Model, SerializerMixin):
 
     @validates('image')
     def validate_image(self, key, image):
-        # Add image URL validation logic if required
+        if not validators.url(image):
+            raise ValueError("Image must be a valid URL")
         return image
 
     @validates('category')
     def validate_category(self, key, category):
-        # Add category validation logic if required
+        if not category:
+            raise ValueError("Category cannot be empty")
         return category
 
     @validates('subCategory')
     def validate_subCategory(self, key, subCategory):
-        # Add subCategory validation logic if required
+        valid_subcategories = ["shows", "movies", "kids"]
+        if subCategory not in valid_subcategories:
+            raise ValueError("Subcategory must be one of: shows, movies, kids")
         return subCategory
 
     def __repr__(self):
@@ -57,13 +62,20 @@ class Episode(db.Model):
 
     @validates('summary')
     def validate_summary(self, key, summary):
-        # Add summary validation logic if required
+        if not summary:
+            raise ValueError("Summary cannot be empty")
+        if len(summary) <= 5:
+            raise ValueError("Summary must be more than 5 characters long")
         return summary
 
     @validates('video')
     def validate_video(self, key, video):
-        # Add video URL validation logic if required
+        if not video:
+            raise ValueError("Video cannot be empty")
+        if not video.startswith("https://www.youtube.com/embed/"):
+            raise ValueError("Video must have a valid YouTube embed URL format")
         return video
+        
 
 
     def __repr__(self):
