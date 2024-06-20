@@ -1,4 +1,3 @@
-# server/seed.py
 #!/usr/bin/env python3
 
 # Standard library imports
@@ -9,8 +8,8 @@ from faker import Faker
 from flask_bcrypt import Bcrypt
 
 # Local imports
-from app import app
-from models import db, User
+from server.config import app
+from server.models import db, User
 
 if __name__ == '__main__':
     fake = Faker()
