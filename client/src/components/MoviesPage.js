@@ -15,7 +15,7 @@ function Movies({ search }) {
         }
         return resp.json();
       })
-      .then((data) => setShows(data))
+      .then((data) => setShows(data)) 
       .catch((error) => setError(error.message));
   }, []);
 
