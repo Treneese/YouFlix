@@ -1,6 +1,6 @@
 # YouFlix
 
-## Created By Treneese Johnson, Ken Richlin, Shane Lee and Ibraham Younas
+## Created By Treneese Johnson, Ken Richlin, Shane Lee and Ibrahem Younas
 
 ## Get the latest version from our [Github Repo](https://github.com/Treneese/YouFlix)
 
