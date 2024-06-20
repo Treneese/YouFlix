@@ -10,8 +10,8 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (username, password) => {
     try {
-      const response = await axios.post('http://localhost:5555/login', { username, password });
-      setUser(response.data);
+      const { data } = await axios.post('/login', { username, password }, { withCredentials: true });
+      setUser(data);
       setIsAuthenticated(true);
     } catch (error) {
       throw error;
@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (username, password) => {
     try {
-      const response = await axios.post('http://localhost:5555/signup', { username, password });
+      await axios.post('/signup', { username, password }, { withCredentials: true });
       await login(username, password);
     } catch (error) {
       throw error;
@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await axios.delete('http://localhost:5555/logout');
+      await axios.delete('/logout', { withCredentials: true });
       setUser(null);
       setIsAuthenticated(false);
     } catch (error) {

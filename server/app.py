@@ -34,6 +34,7 @@ class Signup(Resource):
 class CheckSession(Resource):
     def get(self):
         user_id = session.get('user_id')
+        print(f"Session user_id: {user_id}")
         if user_id:
             user = User.query.get(user_id)
             if user:
@@ -53,6 +54,8 @@ class Login(Resource):
             if not bcrypt.check_password_hash(user._password_hash, password):
                 return {'message': 'Incorrect password'}, 400
             session['user_id'] = user.id
+            session.modified = True
+            print(f"Session set: {session['user_id']}")
             return user.to_dict()
         except Exception as e:
             return {'message': str(e)}, 500

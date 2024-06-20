@@ -25,3 +25,11 @@ class User(db.Model, SerializerMixin):
 
     def authenticate(self, password):
         return bcrypt.check_password_hash(self._password_hash, password)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'username': self.username,
+            'avatar_url': self.avatar_url,
+            'created_at': self.created_at.isoformat()  # Convert datetime to ISO format string
+        }

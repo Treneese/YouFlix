@@ -1,6 +1,6 @@
 // src/components/Login.js
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
 import './Login.css';
 
@@ -10,14 +10,24 @@ const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const history = useHistory();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setError('');
-    if (isSignUp) {
-      register(username, password).catch(err => setError(err.response.data.message));
-    } else {
-      login(username, password).catch(err => setError(err.response.data.message));
+    setLoading(true);
+    try {
+      if (isSignUp) {
+        await register(username, password);
+      } else {
+        await login(username, password);
+      }
+      history.push('/profile');
+    } catch (err) {
+      setError(err.response?.data?.message || 'An error occurred. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -57,7 +67,9 @@ const Login = () => {
               required
             />
           </div>
-          <button type="submit">{isSignUp ? 'Sign Up' : 'Log In'}</button>
+          <button type="submit" disabled={loading}>
+            {loading ? 'Processing...' : isSignUp ? 'Sign Up' : 'Log In'}
+          </button>
         </form>
         <button onClick={() => setIsSignUp(!isSignUp)}>
           {isSignUp ? 'Already have an account? Log In' : 'Create a new account'}
