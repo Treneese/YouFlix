@@ -23,15 +23,22 @@
   
   .menu li {
     margin-right: 20px;
+    margin: 0 10px;
   }
   
   .menu a {
     color: #fff;
     text-decoration: none;
+    border-radius: 10px;
+    border: 2px solid rgb(247, 246, 237);
+    transition: .3s;
+    background-color: #060303;
   }
   
   .menu a:hover {
-    text-decoration: underline;
+    color: rgb(255, 255, 255);
+    box-shadow: 0 0 20px rgb(255, 65, 65);
+    border-color: rgb(255, 65, 65); 
   }
   /* Nav component styles */
 .menu {

@@ -1,11 +1,8 @@
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.associationproxy import association_proxy
+from sqlalchemy.orm import validates
 from server.config import db, bcrypt 
-from config import db
 import validators
-
-
-
 
 class Show(db.Model, SerializerMixin):
     __tablename__ = "shows"
@@ -43,7 +40,7 @@ class Show(db.Model, SerializerMixin):
         return subCategory
 
     def __repr__(self):
-        return f"<Show {self.name}>"
+        return f"<Show {self.title}>"
     
 class Episode(db.Model):
     __tablename__ = "episodes"
@@ -75,8 +72,6 @@ class Episode(db.Model):
         if not video.startswith("https://www.youtube.com/embed/"):
             raise ValueError("Video must have a valid YouTube embed URL format")
         return video
-        
-
 
     def __repr__(self):
         return f"<Episode {self.title}>"
