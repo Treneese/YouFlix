@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "name": "youflix",
   "version": "1.0.0",
@@ -17,3 +18,11 @@
   },
   "proxy": "http://localhost:5555"
 }
+=======
+{
+  "dependencies": {
+    "client": "^0.0.1",
+    "prefix": "^1.0.0"
+  }
+}
+>>>>>>> origin/kens

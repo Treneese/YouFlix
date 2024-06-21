@@ -10,7 +10,7 @@ from faker import Faker
 from app import app
 from models import db
 from server.config import db
-from server.models import Show, Episode 
+from models import Show, Episode 
 
 if __name__ == '__main__':
     fake = Faker()
