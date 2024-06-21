@@ -11,7 +11,7 @@ function ShowsPage({Shows, search}) {
 
 
   useEffect(() => {
-    fetch("Fech/url")
+    fetch("http://localhost:5555")
       .then((resp) => {
         if (!resp.ok) {
           throw new Error("Failed to fetch shows");

@@ -1,31 +1,40 @@
 #!/usr/bin/env python3
 
 # Standard library imports
+from flask import Flask, request, jsonify
 from flask_cors import CORS
-from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
-
-
+# Local imports
+from config import app, db
 
 app = Flask(__name__)
 CORS(app)
-# Remote library imports
-from flask import request
-from flask_restful import Resource
 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///your-database-file.db'
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
-# Local imports
-from config import app, db, api
-# Add your model imports
+# Models
+class Profile(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+    user_id = db.Column(db.Integer, nullable=False)
+    my_list = db.relationship('Show', secondary='profile_show', back_populates='profiles')
 
-# Views go here!
+class Show(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(120), nullable=False)
+    profiles = db.relationship('Profile', secondary='profile_show', back_populates='shows')
 
-from flask import Flask, request, jsonify
+# Association table
+profile_show = db.Table('profile_show',
+    db.Column('profile_id', db.Integer, db.ForeignKey('profile.id')),
+    db.Column('show_id', db.Integer, db.ForeignKey('show.id'))
+)
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
-db.init_app(app)
-
+# Routes
 @app.route('/profiles', methods=['POST'])
 def create_profile():
     data = request.json
@@ -87,15 +96,13 @@ def delete_favorite(profile_id, show_id):
         return jsonify({'message': 'Show removed from My List'}), 200
     return jsonify({'message': 'Profile or Show not found'}), 404
 
-
-
 @app.route('/')
 def index():
     return '<h1>Project Server</h1>'
 
-
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
+
 
 # #@app.route('/shows', methods=['GET'])
 # def get_shows():

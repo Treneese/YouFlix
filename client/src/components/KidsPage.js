@@ -8,7 +8,7 @@ function Kids({ search }) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`URL/shows?category=Kids`)
+    fetch(`http://localhost:5555/shows?subCategory=kids`)
       .then((resp) => {
         if (!resp.ok) {
           throw new Error("Failed to fetch shows");

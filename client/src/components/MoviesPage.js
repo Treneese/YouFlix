@@ -8,7 +8,7 @@ function Movies({ search }) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`URL/shows?category=Movies`)
+    fetch(`http://localhost:5555/shows?subCategory=movies`)
       .then((resp) => {
         if (!resp.ok) {
           throw new Error("Failed to fetch shows");

@@ -1,7 +1,7 @@
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.associationproxy import association_proxy
-from sqlalchemy.orm import validates
-from server.config import db, bcrypt 
+from sqlalchemy.orm import relationship, validates
+from server.config import db, bcrypt
 import validators
 
 class Show(db.Model, SerializerMixin):
@@ -14,6 +14,11 @@ class Show(db.Model, SerializerMixin):
     category = db.Column(db.String)
     subCategory = db.Column(db.String)
 
+
+    episodes = relationship("Episode", back_populates="show", cascade="all, delete-orphan")
+
+    serialize_only = ('id', 'title', 'image', 'summary', 'category', 'subCategory', 'episodes')
+    
     @validates('title')
     def validate_title(self, key, title):
         if not title:
@@ -41,8 +46,8 @@ class Show(db.Model, SerializerMixin):
 
     def __repr__(self):
         return f"<Show {self.title}>"
-    
-class Episode(db.Model):
+
+class Episode(db.Model, SerializerMixin):
     __tablename__ = "episodes"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -50,6 +55,11 @@ class Episode(db.Model):
     summary = db.Column(db.Text)
     video = db.Column(db.String)
     show_id = db.Column(db.Integer, db.ForeignKey('shows.id'), nullable=False)
+
+   
+    show = relationship("Show", back_populates="episodes")
+
+    serialize_only = ('id', 'title', 'summary', 'video', 'show_id', 'show')
 
     @validates('title')
     def validate_title(self, key, title):
@@ -75,3 +85,4 @@ class Episode(db.Model):
 
     def __repr__(self):
         return f"<Episode {self.title}>"
+

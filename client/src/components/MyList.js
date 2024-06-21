@@ -8,7 +8,7 @@ function MyList({ search }) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`URL/shows?category=My_List`)
+    fetch(`http://localhost:5555/shows?subCategory=My_List`)
       .then((resp) => {
         if (!resp.ok) {
           throw new Error("Failed to fetch shows");
