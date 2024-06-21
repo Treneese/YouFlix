@@ -1,0 +1,41 @@
+.cards {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-gap: 20px;
+  }
+  
+  .cards li {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+  }
+  
+  .cards li:hover {
+    background-color: #f9f9f9;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  }
+  
+  .cards li h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .cards li p {
+    margin: 0;
+    font-size: 14px;
+  }
+  
+  .cards li button {
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+  }
+  
+  .cards li button:hover {
+    background-color: #fd0101;
+  }
+  

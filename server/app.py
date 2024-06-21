@@ -3,7 +3,7 @@
 # Standard library imports
 
 # Remote library imports
-from flask import request, session
+from flask import Flask, request, session, make_response, jsonify
 from flask_bcrypt import Bcrypt
 from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
@@ -12,7 +12,7 @@ from sqlalchemy.exc import IntegrityError
 from config import app, db, api, bcrypt, migrate
 
 # Add your model imports
-from models import User
+from models import User, Episode, Show
 
 bcrypt = Bcrypt(app)
 
@@ -23,8 +23,8 @@ def check_if_logged_in():
         'login',
         'check_session'
     ]
-    if (request.endpoint) not in open_access_list and (not session.get('user_id')):
-        return {'error': '401 Unauthorized'}, 401
+    # if (request.endpoint) not in open_access_list and (not session.get('user_id')):
+    #     return {'error': '401 Unauthorized'}, 401
 
 # class ClearSession(Resource):
 #     pass
@@ -68,8 +68,9 @@ class Login(Resource):
         if user:
             if user.authenticate(password):
                 session['user_id'] = user.id
-                return user.to_dict(), 200
-        return {'error': '401 Unauthorized'}, 401
+                return make_response(user.to_dict(), 200)
+        else: 
+            return make_response({'error': '401 Unauthorized'}, 401)
 
 class Logout(Resource):
     def delete(self):
@@ -80,14 +81,24 @@ class Logout(Resource):
 
 # Views go here!
 
-@app.route('/')
-def index():
-    return '<h1>Project Server</h1>'
 
 api.add_resource(Signup, '/signup', endpoint='signup')
 api.add_resource(CheckSession, '/check_session', endpoint='check_session')
 api.add_resource(Login, '/login', endpoint='login')
 api.add_resource(Logout, '/logout', endpoint='logout')
+
+
+@app.route('/shows', methods=['GET'])
+def search_shows():
+    query = request.args.get('query')
+    shows = Show.query.filter(Show.title.contains(query)).all()
+    return jsonify([show.title for show in shows]), 200
+
+
+
+@app.route('/')
+def index():
+    return '<h1>Project Server</h1>'
 
 
 if __name__ == '__main__':
