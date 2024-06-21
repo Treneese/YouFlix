@@ -1,0 +1,57 @@
+/* Movies component styles */
+.Movie-container {
+    padding: 20px;
+  }
+  
+  .Movie-container h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  /* ShowCard component styles */
+  .card-container {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .card-img {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    object-fit: cover;
+  }
+  
+  .card-text {
+    margin-top: 10px;
+  }
+  
+  .card-title {
+    font-size: 18px;
+    margin: 0;
+  }
+  
+  .buttons-container {
+    margin-top: 10px;
+  }
+  
+  .favorite-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+  }
+  
+  .favorite-button.favorite {
+    background-color: #dc3545;
+  }
+  
+  .favorite-button:hover {
+    background-color: #ff0707;
+  }
+  
