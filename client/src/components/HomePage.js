@@ -1,12 +1,10 @@
 // src/components/HomePage.js
 import React from 'react';
-import Header from './Header';
 import './HomePage.css';
 
 const HomePage = () => {
   return (
     <div className="homepage">
-      <Header />
       <div className="banner">
         <h2>Featured Show</h2>
         <p>Description of the featured show...</p>

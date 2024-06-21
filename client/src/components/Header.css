@@ -1,33 +1,34 @@
 /* src/components/Header.css */
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--bg);
-    padding: 20px;
-    color: var(--header);
-  }
-  
-  .header h1 {
-    margin: 0;
-  }
-  
-  .header nav ul {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-  }
-  
-  .header nav a, .header nav button {
-    color: var(--link);
-    text-decoration: none;
-    font-weight: bold;
-    background: none;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .header nav a:hover, .header nav button:hover {
-    text-decoration: underline;
-  }
-  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--bg);
+  padding: 20px;
+  color: var(--header);
+}
+
+.header h1 {
+  margin: 0;
+}
+
+.header nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.header nav a,
+.header nav button {
+  color: var(--link);
+  text-decoration: none;
+  font-weight: bold;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.header nav a:hover,
+.header nav button:hover {
+  text-decoration: underline;
+}

@@ -1,6 +1,6 @@
 // src/components/Login.js
 import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
 import './Login.css';
 
@@ -33,16 +33,6 @@ const Login = () => {
 
   return (
     <div className="login">
-      <header className="login-header">
-        <h1>YouFlix</h1>
-        <nav>
-          <ul>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/profile">Profile</Link></li>
-            <li><Link to="/login">Sign In</Link></li>
-          </ul>
-        </nav>
-      </header>
       <div className="login-container">
         <h2>{isSignUp ? 'Create Account' : 'Sign In'}</h2>
         {error && <p className="error">{error}</p>}

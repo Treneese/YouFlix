@@ -1,3 +1,4 @@
+// src/components/Profile.js
 import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
@@ -6,7 +7,7 @@ import './Profile.css';
 import axios from 'axios';
 
 const Profile = () => {
-  const { isAuthenticated, user, logout } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
   const [profile, setProfile] = useState(null);
   const [username, setUsername] = useState('');
   const [avatarUrl, setAvatarUrl] = useState('');

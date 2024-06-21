@@ -11,8 +11,12 @@ const Header = () => {
     <header className="header">
       <h1>YouFlix</h1>
       <nav>
-        <ul>
+        <ul className="menu">
           <li><Link to="/">Home</Link></li>
+          <li><Link to="/shows">Shows</Link></li>
+          <li><Link to="/shows/movies">Movies</Link></li>
+          <li><Link to="/shows/kids">Kids</Link></li>
+          <li><Link to="/shows/mylist">My List</Link></li>
           {isAuthenticated ? (
             <>
               <li><Link to="/profile">Profile</Link></li>
