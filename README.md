@@ -35,3 +35,5 @@ Welcome to YouFlix!  We have all the best videos on the internet.  Just go ahead
 - client/public - This is the public directory where we host our index.html file
 
 ## Screenshot of our Object Diagram
+
+![object diagram](object_diagram.png)
