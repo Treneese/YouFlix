@@ -5,6 +5,8 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from app import app, db
+from models import Profile, Show
 
 # Local imports
 from config import app, db
@@ -16,23 +18,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///your-database-file.db'
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-# Models
-class Profile(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), nullable=False)
-    user_id = db.Column(db.Integer, nullable=False)
-    my_list = db.relationship('Show', secondary='profile_show', back_populates='profiles')
 
-class Show(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(120), nullable=False)
-    profiles = db.relationship('Profile', secondary='profile_show', back_populates='shows')
-
-# Association table
-profile_show = db.Table('profile_show',
-    db.Column('profile_id', db.Integer, db.ForeignKey('profile.id')),
-    db.Column('show_id', db.Integer, db.ForeignKey('show.id'))
-)
 
 # Routes
 @app.route('/profiles', methods=['POST'])

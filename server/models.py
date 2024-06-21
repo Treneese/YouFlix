@@ -3,6 +3,7 @@ from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy.orm import relationship, validates
 from server.config import db, bcrypt
 import validators
+from app import db
 
 class Show(db.Model, SerializerMixin):
     __tablename__ = "shows"
