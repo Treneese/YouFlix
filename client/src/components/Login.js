@@ -1,44 +1,41 @@
 // src/components/Login.js
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useAuth } from '../AuthContext';
 import './Login.css';
 
 const Login = () => {
-  const [isSignUp, setIsSignUp] = useState(true);
+  const { login, register } = useAuth();
+  const [isSignUp, setIsSignUp] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [avatar, setAvatar] = useState(null);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
 
-  const handleAvatarChange = (event) => {
-    setAvatar(event.target.files[0]);
-  };
-
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    if (isSignUp) {
-      // Handle sign-up logic here
-      console.log('Creating profile:', { username, password, avatar });
-    } else {
-      // Handle login logic here
-      console.log('Logging in with:', { username, password });
+    setError('');
+    setLoading(true);
+    try {
+      if (isSignUp) {
+        await register(username, password);
+      } else {
+        await login(username, password);
+      }
+      history.push('/profile');
+    } catch (err) {
+      setError(err.response?.data?.message || 'An error occurred. Please try again.');
+    } finally {
+      setLoading(false);
     }
-    history.push('/');
   };
 
   return (
     <div className="login">
-      <header className="login-header">
-        <h1>YouFlix</h1>
-        <nav>
-          <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/profile">Profile</a></li>
-          </ul>
-        </nav>
-      </header>
       <div className="login-container">
         <h2>{isSignUp ? 'Create Account' : 'Sign In'}</h2>
+        {error && <p className="error">{error}</p>}
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="username">Username</label>
@@ -60,13 +57,9 @@ const Login = () => {
               required
             />
           </div>
-          {isSignUp && (
-            <div className="form-group">
-              <label htmlFor="avatar">Upload Avatar</label>
-              <input type="file" id="avatar" onChange={handleAvatarChange} />
-            </div>
-          )}
-          <button type="submit">{isSignUp ? 'Sign Up' : 'Log In'}</button>
+          <button type="submit" disabled={loading}>
+            {loading ? 'Processing...' : isSignUp ? 'Sign Up' : 'Log In'}
+          </button>
         </form>
         <button onClick={() => setIsSignUp(!isSignUp)}>
           {isSignUp ? 'Already have an account? Log In' : 'Create a new account'}

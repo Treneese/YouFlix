@@ -1,6 +1,4 @@
-# Standard library imports
-
-# Remote library imports
+# Local imports
 from flask import Flask
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
@@ -9,11 +7,9 @@ from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
 
-# Local imports
-
 # Instantiate app, set attributes
 app = Flask(__name__)
-# set an app.secret_key that will be hard to craXX0r
+app.secret_key = 'your_secret_key'  # Add a secret key
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False

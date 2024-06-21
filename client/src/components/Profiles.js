@@ -18,7 +18,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await axios.get('http://localhost:5555/check_session', { withCredentials: true });
+        const response = await axios.get('/check_session', { withCredentials: true });
         setProfile(response.data);
         setUsername(response.data.username);
         setAvatarUrl(response.data.avatar_url);
@@ -38,7 +38,7 @@ const Profile = () => {
     setError('');
     setSuccess('');
     try {
-      const response = await axios.patch('http://localhost:5555/update_username', { username }, { withCredentials: true });
+      const response = await axios.patch('/update_username', { username }, { withCredentials: true });
       setProfile(response.data);
       setSuccess('Username updated successfully');
     } catch (err) {
@@ -52,7 +52,7 @@ const Profile = () => {
     setError('');
     setSuccess('');
     try {
-      const response = await axios.patch('http://localhost:5555/update_avatar', { avatar_url: avatarUrl }, { withCredentials: true });
+      const response = await axios.patch('/update_avatar', { avatar_url: avatarUrl }, { withCredentials: true });
       setProfile(response.data);
       setSuccess('Avatar updated successfully');
     } catch (err) {

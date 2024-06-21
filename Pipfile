@@ -3,16 +3,19 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
+[dev-packages]
+
 [packages]
-ipdb = "0.13.9"
 flask = "*"
-flask-sqlalchemy = "3.0.3"
-Werkzeug = "2.2.2"
+flask-bcrypt = "*"
+flask-sqlalchemy = "*"
 flask-migrate = "*"
-sqlalchemy-serializer = "*"
 flask-restful = "*"
 flask-cors = "*"
+flask-session = "*"
+sqlalchemy = "*"
+sqlalchemy_serializer = "*"
 faker = "*"
 
 [requires]
-python_full_version = "3.8.13"
+python_version = "3.8"
