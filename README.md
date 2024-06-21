@@ -9,6 +9,7 @@
 ## Setup Instructions
 
 - To initialize the environment, type `pipenv install && pipenv shell`
+- Enable bcrypt by typing `pip install flask-bcrypt`
 - You should populate the database with some test data by running `python server/seed.py` (maybe do this in config to skip this step when we deploy?)
 - Start the server by typing `python server/app.py` (change this after deployment)
 - In a new terminal window, type `npm install --prefix client` to initialize the front.
