@@ -37,7 +37,7 @@ class Show(db.Model, SerializerMixin):
     __tablename__ = 'shows'
 
     # Add serialization rules
-    # serialize_only = ('id', 'title', 'image', 'summary', 'category', 'subCategory', 'episodes')
+    serialize_rules = ('-episodes.show',)
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String, nullable=False)
@@ -81,7 +81,7 @@ class Episode(db.Model, SerializerMixin):
     __tablename__ = "episodes"
 
     # Add serialization rules
-    # serialize_only = ('id', 'title', 'summary', 'video', 'show_id', 'show')
+    serialize_rules = ('-show.episodes',)
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String, nullable=False)

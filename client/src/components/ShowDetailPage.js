@@ -3,13 +3,14 @@ import { useParams } from "react-router-dom";
 import "./ShowsDetail.css";
 
 function ShowDetailPage() {
-  const { id } = useParams(); // Assume this is passed via the URL
+  const { id } = useParams();
   const [show, setShow] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentEpisode, setCurrentEpisode] = useState(null);
 
   useEffect(() => {
-    fetch(`url/${id}`)
+    fetch(`http://localhost:5555/show/${id}`)
       .then((resp) => {
         if (!resp.ok) {
           throw new Error("Failed to fetch show details");
@@ -18,6 +19,9 @@ function ShowDetailPage() {
       })
       .then((data) => {
         setShow(data);
+        if (data.episodes && data.episodes.length > 0) {
+          setCurrentEpisode(data.episodes[0]); // Set the first episode as the default
+        }
         setLoading(false);
       })
       .catch((error) => {
@@ -27,34 +31,55 @@ function ShowDetailPage() {
   }, [id]);
 
   if (loading) {
-    return <p>Loading...</p>; // Add a loading spinner here if desired
+    return <p>Loading...</p>;
   }
 
   if (error) {
-    return <p>Error: {error}</p>; // Add retry option or user-friendly error handling
+    return <p>Error: {error}</p>;
   }
+
+  const handleEpisodeClick = (episode) => {
+    setCurrentEpisode(episode);
+  };
 
   return (
     <div className="show-page">
-      <div className="video">
-        <iframe
-          className="video"
-          width="560"
-          height="315"
-          src={show.video}
-          referrerPolicy="strict-origin-when-cross-origin"
-          allowFullScreen
-          title={show.name}
-        />
-      </div>
-      <div className="text">
-        <h3 className="name">{show.name}</h3>
-        <h4 className="be">Summary:</h4>
-        <p className="about">{show.summary}</p>
-        <p className="category">Category: {show.category}</p>
-        <p className="sub-category">Sub-category: {show.subCategory}</p>
-        <p className="episode">Episode: {show.episode}</p>
-        <p className="episode-summary">Episode Summary: {show.episodeSummary}</p>
+      {currentEpisode && (
+         <div className="video-container">
+         <iframe
+           className="video"
+           src={currentEpisode.video}
+           referrerPolicy="strict-origin-when-cross-origin"
+           allowFullScreen
+           title={currentEpisode.title}
+         />
+        </div>
+      )}
+      <div className="episodes-section">
+        <h2 className="section-title">Episodes</h2>
+        <div className="episodes-grid">
+          {show.episodes && show.episodes.length > 0 ? (
+            show.episodes.map((episode) => (
+              <div
+                key={episode.id}
+                className="episode-card"
+                onClick={() => handleEpisodeClick(episode)}
+              >
+                <img
+                  className="episode-thumbnail"
+                  src={show.image}
+                  alt={episode.title}
+                />
+                <div className="episode-info">
+                  <h3 className="episode-title">{episode.title}</h3>
+                  <p className="episode-summary">{episode.summary}</p>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p>No episodes available.</p>
+          )}
+        </div>
       </div>
     </div>
   );

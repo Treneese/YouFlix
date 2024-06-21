@@ -87,18 +87,72 @@ api.add_resource(CheckSession, '/check_session', endpoint='check_session')
 api.add_resource(Login, '/login', endpoint='login')
 api.add_resource(Logout, '/logout', endpoint='logout')
 
+# @app.route('/show/<int:id>', methods=['GET'])
+# def get_show(id):
+#     show = Show.query.get(id)
+#     if show is None:
+#         return jsonify({"error": "Show not found"}), 404
+#     return jsonify(show.to_dict())
 
 @app.route('/shows', methods=['GET'])
-def search_shows():
-    query = request.args.get('query')
-    shows = Show.query.filter(Show.title.contains(query)).all()
-    return jsonify([show.title for show in shows]), 200
+def get_shows():
+    shows = Show.query.all()
+    return jsonify([{
+        "id": show.id, 
+        "title": show.title, 
+        "image": show.image
+    } for show in shows]), 200
+# @app.route('/show/<int:id>', methods=['GET'])
+# def search_shows():
+#     query = request.args.get('query')
+#     shows = Show.query.filter(Show.title.contains(query)).all()
+#     return jsonify([show.title for show in shows]), 200
+# class Show(Resource):
+#    def get_show(id):
+#     show = Show.query.get(id)
+#     if show is None:
+#         return jsonify({"error": "Show not found"}), 404
+#     return jsonify(show.to_dict())
 
+
+
+# # @app.route('/shows', methods=['GET'])
+
+#     def get_shows():
+#         shows = Show.query.all()
+#         return jsonify([{
+#         "id": show.id, 
+#         "name": show.name, 
+#         "image": show.image
+#     } for show in shows]), 200
+
+@app.route('/show/<int:show_id>', methods=['GET'])
+def get_show(show_id):
+    show = Show.query.get(show_id)
+    if show is None:
+        return make_response(jsonify({"error": "Show not found"}), 404)
+    return jsonify({
+        "id": show.id,
+        "title": show.title,
+        "image": show.image,
+        "summary": show.summary,
+        "category": show.category,
+        "subCategory": show.subCategory,
+        "episodes": [{
+            "id": episode.id,
+            "title": episode.title,
+            "summary": episode.summary,
+            "video": episode.video
+        } for episode in show.episodes]
+    }), 200
+
+
+#     return response
 
 
 @app.route('/')
 def index():
-    return '<h1>Project Server</h1>'
+    return "Index for Show/Episode/User API"
 
 
 if __name__ == '__main__':

@@ -32,7 +32,7 @@ function App() {
       <Search onSearch={handleSearch} showsData={showsData} />
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" component={() => <ShowList search={search} />} />
+          <Route exact path="/Shows" component={() => <ShowList search={search} />} />
           <Route path="/ShowsDetailPage/:id" component={ShowDetailPage} />
           <Route path="/Shows/Movies" component={Movies} />
           <Route path="/Shows/Kids" component={Kids} />

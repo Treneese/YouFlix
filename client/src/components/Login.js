@@ -28,15 +28,6 @@ const Login = () => {
 
   return (
     <div className="login">
-      <header className="login-header">
-        <h1>YouFlix</h1>
-        <nav>
-          <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/profile">Profile</a></li>
-          </ul>
-        </nav>
-      </header>
       <div className="login-container">
         <h2>{isSignUp ? 'Create Account' : 'Sign In'}</h2>
         <form onSubmit={handleSubmit}>
