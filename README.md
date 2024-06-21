@@ -1,6 +1,6 @@
 # YouFlix
 
-## Created By Treneese Johnson, Ken Richlin, Shane Lee and Ibraham Younas
+## Created By Treneese Johnson, Ken Richlin, Shane Lee and Ibrahem Younas
 
 ## Get the latest version from our [Github Repo](https://github.com/Treneese/YouFlix)
 
@@ -36,4 +36,3 @@ Welcome to YouFlix!  We have all the best videos on the internet.  Just go ahead
 
 ## Screenshot of our Object Diagram
 
-![object diagram](object_diagram.png)
