@@ -1,4 +1,4 @@
-.show-page {
+/* .show-page {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -108,6 +108,82 @@
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+.episodes-section {
+  padding: 20px;
+}
+
+.section-title {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.episodes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.episode-card {
+  background-color: #222;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s, background-color 0.3s;
+  cursor: pointer;
+}
+
+.episode-card:hover {
+  transform: scale(1.05);
+  background-color: #333;
+}
+
+.episode-thumbnail {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.episode-info {
+  padding: 10px;
+}
+
+.episode-title {
+  font-size: 1.2em;
+  margin: 0;
+}
+
+.episode-summary {
+  font-size: 1em;
+  color: #aaa;
+} */
+
+.show-page {
+  color: white;
+  background-color: #141414;
+  min-height: 100vh;
+  padding: 20px;
+  display: block; /* Changed to block to ensure it doesn't use flex properties */
+}
+
+.video-container {
+  width: 100%;
+  margin-bottom: 20px;
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.text {
+  display: none; /* Hides the text section */
 }
 
 .episodes-section {

@@ -94,14 +94,30 @@ api.add_resource(Logout, '/logout', endpoint='logout')
 #         return jsonify({"error": "Show not found"}), 404
 #     return jsonify(show.to_dict())
 
+# @app.route('/shows', methods=['GET'])
+# def get_shows():
+#     shows = Show.query.all()
+#     return jsonify([{
+#         "id": show.id, 
+#         "title": show.title, 
+#         "image": show.image
+#     } for show in shows]), 200
+
 @app.route('/shows', methods=['GET'])
 def get_shows():
-    shows = Show.query.all()
+    subcategory = request.args.get('subCategory')
+    
+    if subcategory:
+        shows = Show.query.filter_by(subCategory=subcategory).all()
+    else:
+        shows = Show.query.all()
+
     return jsonify([{
-        "id": show.id, 
-        "title": show.title, 
+        "id": show.id,
+        "title": show.title,
         "image": show.image
     } for show in shows]), 200
+
 # @app.route('/show/<int:id>', methods=['GET'])
 # def search_shows():
 #     query = request.args.get('query')
@@ -144,7 +160,7 @@ def get_show(show_id):
             "summary": episode.summary,
             "video": episode.video
         } for episode in show.episodes]
-    }), 200
+    }), 200 
 
 
 #     return response
